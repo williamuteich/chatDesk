@@ -1,7 +1,12 @@
 {
   "private": true,
+  "version": "1.0.0",
   "main": "main/index.js",
-  "productName": "ElectronTypescriptNext",
+  "productName": "chatdesk",
+  "name": "chatdesk",
+  "description": "app de chamado embarcado",
+  "author": "William Uteich",
+  "license": "MIT",
   "scripts": {
     "clean": "rimraf dist main renderer/out renderer/.next",
     "dev": "npm run build-electron && electron .",

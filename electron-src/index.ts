@@ -1,6 +1,6 @@
 // Native
 import { join } from "path";
-import { format } from "url";
+import { URL } from "url";
 
 // Packages
 import { BrowserWindow, app, ipcMain, IpcMainEvent } from "electron";
@@ -12,8 +12,8 @@ app.on("ready", async () => {
   await prepareNext("./renderer");
 
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 750,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -22,12 +22,8 @@ app.on("ready", async () => {
   });
 
   const url = isDev
-    ? "http://localhost:8000/"
-    : format({
-        pathname: join(__dirname, "../renderer/out/index.html"),
-        protocol: "file:",
-        slashes: true,
-      });
+      ? "http://localhost:8000/"
+      : new URL(join(__dirname, "../renderer/out/index.html"), "file:").toString();
 
   mainWindow.loadURL(url);
 });
@@ -38,5 +34,5 @@ app.on("window-all-closed", app.quit);
 // listen the channel `message` and resend the received message to the renderer process
 ipcMain.on("message", (event: IpcMainEvent, message: any) => {
   console.log(message);
-  setTimeout(() => event.sender.send("message", "hi from electron"), 500);
+  setTimeout(() => event.sender.send("message", "Chama no grau da gurizada"), 500);
 });

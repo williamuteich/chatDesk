@@ -14,8 +14,8 @@ const electron_next_1 = __importDefault(require("electron-next"));
 electron_1.app.on("ready", async () => {
     await (0, electron_next_1.default)("./renderer");
     const mainWindow = new electron_1.BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 750,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
@@ -24,11 +24,7 @@ electron_1.app.on("ready", async () => {
     });
     const url = electron_is_dev_1.default
         ? "http://localhost:8000/"
-        : (0, url_1.format)({
-            pathname: (0, path_1.join)(__dirname, "../renderer/out/index.html"),
-            protocol: "file:",
-            slashes: true,
-        });
+        : new url_1.URL((0, path_1.join)(__dirname, "../renderer/out/index.html"), "file:").toString();
     mainWindow.loadURL(url);
 });
 // Quit the app once all windows are closed
@@ -36,5 +32,5 @@ electron_1.app.on("window-all-closed", electron_1.app.quit);
 // listen the channel `message` and resend the received message to the renderer process
 electron_1.ipcMain.on("message", (event, message) => {
     console.log(message);
-    setTimeout(() => event.sender.send("message", "hi from electron"), 500);
+    setTimeout(() => event.sender.send("message", "Chama no grau da gurizada"), 500);
 });
